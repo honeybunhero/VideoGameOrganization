@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Game Tracker</string>
+    <string name="text">Text</string>
+    <string name="add">add</string>
+    <string name="console">Console</string>
+    <string name="game">Game</string>
+    <string name="add_console">Add Console</string>
+    <string name="add_game">Add Game</string>
+    <string name="view_console">View Console</string>
+    <string name="textview">TextView</string>
+    <string name="remove_game">Remove Game</string>
+</resources>
