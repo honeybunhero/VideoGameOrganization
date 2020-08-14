@@ -1,4 +1,4 @@
-package com.example.GameTracker;
+package my.organizational.GameTracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,34 +10,30 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.text.method.ScrollingMovementMethod;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
+    // ---------Declare each variable-------
     public final String SHARED_PREFS = "sharedPrefs";
 
-    public ArrayList<String> consoles;
-    public ArrayList<String> games;
-    public ArrayList<ArrayList> consolesList;
     public ArrayList<String> PS1, PS2, PS3, PS4, Xbox, Xbox360, XboxOne, GB, GBC, GBA, DS, N3DS,
             N64, NGC, Dreamcast, Gamegear, NES, SNES;
 
     Button viewGamesBtn, addGameBtn, removeGameBtn;
     EditText consoleEditText, gameEditText;
-    TextView title, gameList;
+    TextView madeBy, gameList;
 
     boolean firstTimeUsed = true;
-
+    // ---------Declare each variable-------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        consoles = new ArrayList<String>();
 
         PS1 = new ArrayList<String>();
         PS2 = new ArrayList<String>();
@@ -58,8 +54,6 @@ public class MainActivity extends AppCompatActivity {
         NES = new ArrayList<String>();
         SNES = new ArrayList<String>();
 
-        games = new ArrayList<String>();
-        consolesList = new ArrayList<ArrayList>();
 
         viewGamesBtn = findViewById(R.id.viewConsoleBtn);
         addGameBtn = findViewById(R.id.addGameBtn);
@@ -76,14 +70,15 @@ public class MainActivity extends AppCompatActivity {
         consoleEditText.setHint("Console");
         gameEditText.setHint("Game");
 
-        title = findViewById(R.id.title);
-        title.setText("");
+        madeBy = findViewById(R.id.madeBy);
+        madeBy.setText("Made By: " + RandomCreditEntry());
         gameList.setText("");
         gameList.setMovementMethod(new ScrollingMovementMethod());
 
         viewGamesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                madeBy.setVisibility(View.INVISIBLE);
                 String consoleInput = consoleEditText.getText().toString();
                 ViewGames(consoleInput);
             }
@@ -118,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // Check each array to make sure they are not empty. If it's not, then call OrganizeList(), and pass that array as a parameter.
     void CheckGameListEmpty() {
         if (!PS1.isEmpty()) {
             OrganizeList(PS1);
@@ -175,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // User enters a string and that string will be compared to commonly used names for each console to find the one they want to work with, and show all the games the user has added to that console
     void ViewGames(String consoleName) {
         gameList.setText("");
 
@@ -327,6 +324,7 @@ public class MainActivity extends AppCompatActivity {
         gameList.setVisibility(View.VISIBLE);
     }
 
+    // User enters a string and that string will be compared to commonly used names for each console to find the one they want to work with, and allows the user to input the name of any game they want to add to the list
     void AddGame(String gameName, String consoleName) throws Exception {
 
         if (consoleName.equalsIgnoreCase("PS1") ||
@@ -568,7 +566,7 @@ public class MainActivity extends AppCompatActivity {
         SaveData();
         firstTimeUsed = false;
     }
-
+    // User enters a string and that string will be compared to commonly used names for each console to find the one they want to work with, and allows the user to input the name of any game they want to remove from the list
     void RemoveGame(String gameName, String consoleName) {
         if (consoleName.equalsIgnoreCase("PS1") ||
                 consoleName.equalsIgnoreCase("Playstation") ||
@@ -779,7 +777,7 @@ public class MainActivity extends AppCompatActivity {
         }
         SaveData();
     }
-
+    // Organizes all the games in alphabetical order
     void OrganizeList(ArrayList console) {
         gameList.setText("");
         for (int i = 0; i < console.size(); i++) {
@@ -900,4 +898,48 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // Playing around with credits
+    String RandomCreditEntry() {
+        String madeByCredit = null;
+        int max = 10;
+        Random random = new Random();
+        int num = random.nextInt(max + 1);
+
+        switch (num) {
+            case 0:
+                madeByCredit = "Me!";
+                break;
+            case 1:
+                madeByCredit = "Someone who was tired of forgetting his games!";
+                break;
+            case 2:
+                madeByCredit = "Cristhian Vega";
+                break;
+            case 3:
+                madeByCredit = "I'm not sure...";
+                break;
+            case 4:
+                madeByCredit = "Meep";
+                break;
+            case 5:
+                madeByCredit = "HoneybunHero";
+                break;
+            case 6:
+                madeByCredit = "Cinco";
+                break;
+            case 7:
+                madeByCredit = "Shyheart";
+                break;
+            case 8:
+                madeByCredit = "A turtle";
+                break;
+            case 9:
+                madeByCredit = "Insert credit here.";
+                break;
+            case 10:
+                madeByCredit = "Coin operated!";
+                break;
+        }
+        return madeByCredit;
+    }
 }
